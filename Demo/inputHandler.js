@@ -1,6 +1,6 @@
 export class InputHandler {
-    constructor(){
-        this.noteInstance = null;
+    constructor(levelSetupInst){
+        this.levelSetupInstance = levelSetupInst
         this.note = null;
         this.keys = [];
 
@@ -8,18 +8,18 @@ export class InputHandler {
             console.log(e.key);
             
             if(e.key == this.note){
-                alert("Correct")
-                this.noteInstance.change();
+                //alert("Correct")
+                //this.noteInstance.change();
+                this.levelSetupInstance.note.change();
+                this.levelSetupInstance.scoreboard.correctPlusOne();
             } else {
-                alert("Incorrect")
+                //alert("Incorrect")
+                this.levelSetupInstance.scoreboard.incorrectPlusOne();
             }
             
         })
     }
     setNote(noteValue){
         this.note = noteValue;
-    }
-    setNoteInstance(noteObject){
-        this.noteInstance = noteObject;
     }
 }

@@ -1,5 +1,6 @@
 
-import {InputHandler} from './inputHandler.js';
+import { InputHandler } from './inputHandler.js';
+import { Scoreboard } from './scoreboard.js';
 
 export class Object {
     constructor(game){
@@ -19,19 +20,19 @@ export class Object {
 }
 
 export class WholeNote extends Object {
-    constructor(game, inputHandler){
+    constructor(game, inputHandler, levelSetup){
         super(game)
         this.image = document.getElementById("wholeNote");
         
         this.speed = 3;
         this.setup = null
         this.inputHandler = inputHandler;
-        this.inputHandler.setNoteInstance(this);
         this.x = 900
         this.y = null // this.setup.getY();
         this.noteValue = null //this.setup.getValue();
         
         this.getNextNote = false;
+        this.levelSetup = levelSetup;
     }
     change(){
         this.getNextNote = true;
@@ -51,7 +52,6 @@ export class WholeNote extends Object {
             this.noteValue = this.setup.getValue();
             this.inputHandler.setNote(this.setup.getValue());
             this.getNextNote = false;
-            
         }
     }
     draw(context){
@@ -186,45 +186,15 @@ class BaseSetup {
     }
 }
 
-class Scoreboard{
-    constructor(){
-        this.correct = 0;
-        this.incorrect = 0;
-        this.totalNumberOfQuestions = 0;
-    }
-    correctPlusOne(){
-        this.correct += 1;
-        this.totalNumberOfQuestions += 1;
-    }
-    incorrectPlusOne(){
-        this.incorrect += 1;
-        this.totalNumberOfQuestions += 1;
-    }
-    getResult(){
-        let resultMessage = "Your scored " + this.correct + " out of " + this.totalNumberOfQuestions + " questions.";
-        console.log(resultMessage);
-        return resultMessage;
-    }
-    reset(){
-        this.correct = 0;
-        this.incorrect = 0;
-        this.totalNumberOfQuestions = 0;
-    }
-
-}
-
 export class LevelSetup {
     // Type is either Treble clef or Base clef setup
     constructor(game){
         this.game = game;
-        this.scoreboard = new Scoreboard()
+        this.scoreboard = new Scoreboard(this)
         this.levelNumber = null;
         this.loaded = null;
-        this.inputHandler = new InputHandler()
-        this.note = new WholeNote(game, this.inputHandler);
-        this.break = false;
-        
-
+        this.inputHandler = new InputHandler(this)
+        this.note = new WholeNote(game, this.inputHandler, this);
     }
     loadSetup(value){
         console.log("Level setup loading... " + value)
@@ -243,5 +213,12 @@ export class LevelSetup {
    
         this.note.draw(context);
         this.loaded.draw(context);
+    }
+    gameOver(){
+        this.game.running = false
+        console.log("Game Over")
+    }
+    test(){
+        console.log("testing karl")
     }
 }
