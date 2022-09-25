@@ -2,6 +2,7 @@
 import {InputHandler} from './inputHandler.js';
 import { Stave, LevelSetup} from './player.js';
 
+
 window.addEventListener('load', function(){
     const canvas = document.getElementById("CanvasLayout");
     const ctx = canvas.getContext('2d'); 
@@ -16,7 +17,7 @@ window.addEventListener('load', function(){
             // Add objects below
             this.stave = new Stave(this);
             this.levelSetup = new LevelSetup(this)
-            this.levelSetup.loadSetup("base");
+            this.levelSetup.loadSetup("bass");
         }
         update(){
             // Stop and start the game
@@ -34,14 +35,18 @@ window.addEventListener('load', function(){
     
     
     // Game Loop
-    let lastTime = 1;
+    let secondsPassed;
+    let oldTimeStamp;
+    let fps;
    
     function animate(timeStamp){
         // Calculate the number of seconds passed since the last frame
-        const deltaTime = timeStamp - lastTime;
-        lastTime = timeStamp;
-        
-        //console.log(timeStamp)
+        secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+        oldTimeStamp = timeStamp;
+
+        // Calculate fps
+        fps = Math.round(1 / secondsPassed);
+        console.log(fps)
         ctx.clearRect(0,0,canvas.width, canvas.height);
         game.update();
         game.draw(ctx);
@@ -50,13 +55,16 @@ window.addEventListener('load', function(){
 
      animate(1);
         
+
+
+
      const treble_btn = document.getElementById("treble-btn");
     treble_btn.addEventListener('click',()=>{
         game.levelSetup.loadSetup("treble");
     })
      const base_btn = document.getElementById("base-btn");
     base_btn.addEventListener('click', ()=>{
-        game.levelSetup.loadSetup("base");
+        game.levelSetup.loadSetup("bass");
     })
      const play_btn = document.getElementById("play");
      play_btn.addEventListener('click', ()=>{

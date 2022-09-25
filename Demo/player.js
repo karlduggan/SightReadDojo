@@ -1,6 +1,7 @@
 
 import { InputHandler } from './inputHandler.js';
 import { Scoreboard } from './scoreboard.js';
+import { KeySigniture } from './signiture.js';
 
 export class Object {
     constructor(game){
@@ -69,10 +70,10 @@ export class TrebleGraphic extends Object {
     }
 }
 
-export class BaseGraphic extends Object {
+export class BassGraphic extends Object {
     constructor(game){
         super(game)
-        this.image = document.getElementById("baseClef");
+        this.image = document.getElementById("bassClef");
     }
     draw(context){
         context.drawImage(this.image, 30,41)
@@ -139,7 +140,7 @@ class TrebleSetup{
     }
 }
 
-class BaseSetup {
+class BassSetup {
     constructor(game){
         // Y Positions and values 
         this.posAndValues = [
@@ -156,7 +157,7 @@ class BaseSetup {
             [108, "f"]]
         this.Y = 0;
         this.Value = 0
-        this.baseGraphic = new BaseGraphic(game);
+        this.bassGraphic = new BassGraphic(game);
         this.setup();
     }
     setup(){
@@ -181,7 +182,7 @@ class BaseSetup {
         return this.Value;
     }
     draw(context){
-        this.baseGraphic.draw(context);
+        this.bassGraphic.draw(context);
 
     }
 }
@@ -194,6 +195,7 @@ export class LevelSetup {
         this.levelNumber = null;
         this.loaded = null;
         this.inputHandler = new InputHandler(this)
+        this.keySigniture = new KeySigniture(game)
         this.note = new WholeNote(game, this.inputHandler, this);
     }
     loadSetup(value){
@@ -201,8 +203,8 @@ export class LevelSetup {
         if(value == "treble"){
             this.loaded = new TrebleSetup(this.game);
             this.note.loadSettings(this.loaded)
-        } else if(value == "base"){
-            this.loaded = new BaseSetup(this.game);
+        } else if(value == "bass"){
+            this.loaded = new BassSetup(this.game);
             this.note.loadSettings(this.loaded)
         }
     }
@@ -213,6 +215,7 @@ export class LevelSetup {
    
         this.note.draw(context);
         this.loaded.draw(context);
+        this.keySigniture.draw(context)
     }
     gameOver(){
         this.game.running = false

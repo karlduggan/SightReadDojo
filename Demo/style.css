@@ -1,12 +1,18 @@
 #wholeNote {
     display: none;
 }
-#baseClef {
+#bassClef {
     display: none;
 }
 #trebleClef{
     display: none;
 }
 #stave {
+    display: none;
+}
+#sharp {
+    display: none;
+}
+#flat {
     display: none;
 }
