@@ -202,10 +202,12 @@ export class LevelSetup {
         console.log("Level setup loading... " + value)
         if(value == "treble"){
             this.loaded = new TrebleSetup(this.game);
+            this.keySigniture.setTreble()
             this.note.loadSettings(this.loaded)
         } else if(value == "bass"){
             this.loaded = new BassSetup(this.game);
             this.note.loadSettings(this.loaded)
+            this.keySigniture.setBass()
         }
     }
     update(){

@@ -5,16 +5,34 @@ export class KeySigniture extends Object {
         super(game)
         this.image_flat = document.getElementById("flat");
         this.image_sharp = document.getElementById("sharp")
-        this.x = 90
-        this.spacing = 5;
+        
+        this.majorOrMinor = null;
+        this.trebleOrBass = null;
+        // Shift down for rendering Bass
+        this.shiftDown = 17
+        // Load Selection set at default values
+        this.keySelected = "C";
+        this.loadSelected = 0
+        this.sharp_or_flat = "sharp"
+        this.major_or_minor = "Major"
 
         this.flatXY = [
-            [90, 17],
+            [90, 44],
             [110, 17],
-            [130, 17],
-            [150, 17],
-            [170, 17],
-            [170, 17]
+            [130, 51],
+            [150, 27],
+            [170, 61],
+            [190, 34],
+            [210, 68]
+        ]
+        this.sharpXY = [
+            [90,  20],
+            [115, 45],
+            [140, 10],
+            [165, 37],
+            [190, 61],
+            [215, 28],
+            [240, 54]
         ]
         this.majorSharpKeySigniture = {
             "C":  0,
@@ -53,26 +71,62 @@ export class KeySigniture extends Object {
             "Eb": 6,
         }
     }
-    update(){}
+    setTreble(){
+        this.shiftDown = 0;
+    }
+    setBass(){
+        this.shiftDown = 17;
+    }
+    setKey(key){
+        this.keySelected = key;
+    }
+    setMajorOrMinor(value){
+        //this.major_or_minor = value;
+        if(value == "Minor"){
+            if(this.keySelected in this.minorSharpKeySigniture){
+                this.loadSelected = this.minorSharpKeySigniture[this.keySelected]
+                this.sharp_or_flat = "sharp";
+            } else {
+                this.loadSelected = this.minorFlatKeySigniture[this.keySelected]
+                this.sharp_or_flat = "flat";
+            }
+            console.log("Selected Minor")
+        }
+        if(value == "Major"){
+            if(this.keySelected in this.majorSharpKeySigniture){
+                this.loadSelected = this.majorSharpKeySigniture[this.keySelected]
+                this.sharp_or_flat = "sharp";
+            }else {
+                this.loadSelected = this.majorFlatKeySigniture[this.keySelected]
+                this.sharp_or_flat = "flat";
+            }
+            console.log("Selected Major")
+        
+        }
+    }
 
-    test(context){
-        for(let index of this.flatXY){
-            console.log(index)
-            context.drawImage(this.image_flat, index[0] , index[1])
-            
+    update(){}
+    drawSharps(context){
+        for(var i = 0; i < this.loadSelected; i++){
+            let index = this.sharpXY[i];
+            context.drawImage(this.image_sharp, index[0] , index[1] + this.shiftDown)
+        }
+    }
+    drawFlats(context){
+        for(var i = 0; i < this.loadSelected; i++){
+            let index = this.flatXY[i];
+            context.drawImage(this.image_flat, index[0] , index[1] + this.shiftDown)
         }
         this.x = 90
     }
 
     draw(context){
-       // Testing loop
-        
-        console.log("draw")
-        this.test(context)
-        //context.drawImage(this.image_flat, this.x, 17)
-           
-        
-       
+        if(this.sharp_or_flat == "sharp"){
+            this.drawSharps(context) 
+        }else {
+            this.drawFlats(context)
+        }
         
     }
+    
 }

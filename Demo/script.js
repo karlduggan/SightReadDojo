@@ -17,7 +17,7 @@ window.addEventListener('load', function(){
             // Add objects below
             this.stave = new Stave(this);
             this.levelSetup = new LevelSetup(this)
-            this.levelSetup.loadSetup("bass");
+            this.levelSetup.loadSetup("treble");
         }
         update(){
             // Stop and start the game
@@ -35,24 +35,13 @@ window.addEventListener('load', function(){
     
     
     // Game Loop
-    let secondsPassed;
-    let oldTimeStamp;
-    let fps;
-   
-    function animate(timeStamp){
-        // Calculate the number of seconds passed since the last frame
-        secondsPassed = (timeStamp - oldTimeStamp) / 1000;
-        oldTimeStamp = timeStamp;
-
-        // Calculate fps
-        fps = Math.round(1 / secondsPassed);
-        console.log(fps)
+    function animate(){
         ctx.clearRect(0,0,canvas.width, canvas.height);
         game.update();
         game.draw(ctx);
         requestAnimationFrame(animate)
     }
-
+    //requestAnimationFrame(animate)
      animate(1);
         
 
@@ -71,7 +60,27 @@ window.addEventListener('load', function(){
         game.levelSetup.scoreboard.reset()
         game.running = true;
      })
+     const key_signiture_selection = document.getElementById("key-signiture")
+     const major_minor_selection = document.getElementById("key-signiture-major-minor")
+     key_signiture_selection.addEventListener('change',(e)=>{
+        var key = key_signiture_selection.value;
+        game.levelSetup.keySigniture.setKey(key)
 
+        var value = major_minor_selection.value;
+        game.levelSetup.keySigniture.setMajorOrMinor(value)
+        
+
+     })
+     
+     major_minor_selection.addEventListener('change',(e)=>{
+        var key = key_signiture_selection.value;
+        game.levelSetup.keySigniture.setKey(key)
+
+        var value = major_minor_selection.value;
+        game.levelSetup.keySigniture.setMajorOrMinor(value)
+        console.log(value)
+
+     })
    
     
     
