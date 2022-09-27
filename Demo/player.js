@@ -37,6 +37,7 @@ export class WholeNote extends Object {
     }
     change(){
         this.getNextNote = true;
+        
     }
     loadSettings(settings){
         this.setup = settings;
@@ -53,6 +54,7 @@ export class WholeNote extends Object {
             this.noteValue = this.setup.getValue();
             this.inputHandler.setNote(this.setup.getValue());
             this.getNextNote = false;
+            console.log(this.noteValue)
         }
     }
     draw(context){
