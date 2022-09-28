@@ -12,6 +12,7 @@ export class InputHandler {
         })
         
         window.addEventListener('keyup', e => {
+            let OnePress = true;
             // On keyup check entry of dict and then clear
             if("ArrowUp" in this.map){
                 let keysPressed = Object.keys(this.map);
@@ -44,6 +45,8 @@ export class InputHandler {
                 //alert("Incorrect")
                 this.levelSetupInstance.scoreboard.incorrectPlusOne();
             }
+                
+            
             console.log("Pressed: " + this.pressed)
 
             // Clear map

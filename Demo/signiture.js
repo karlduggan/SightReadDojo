@@ -5,7 +5,7 @@ export class KeySigniture extends Object {
         super(game)
         this.image_flat = document.getElementById("flat");
         this.image_sharp = document.getElementById("sharp")
-        
+        this.game = game;
         this.majorOrMinor = null;
         this.trebleOrBass = null;
         // Shift down for rendering Bass
@@ -16,6 +16,10 @@ export class KeySigniture extends Object {
         this.sharp_or_flat = "sharp"
         this.major_or_minor = "Major"
 
+        this.sharpArray = ["f","c","g","d","a","e","b"]
+        this.flatArray = ["b","e","a","d","g","c","f"]
+    
+        // X Y graphic positions for flats
         this.flatXY = [
             [90, 44],
             [110, 17],
@@ -25,6 +29,7 @@ export class KeySigniture extends Object {
             [190, 34],
             [210, 68]
         ]
+        // X Y graphic position for sharps
         this.sharpXY = [
             [90,  20],
             [115, 45],
@@ -34,6 +39,7 @@ export class KeySigniture extends Object {
             [215, 28],
             [240, 54]
         ]
+        // Number of sharp keys in major
         this.majorSharpKeySigniture = {
             "C":  0,
             "G":  1,
@@ -44,6 +50,7 @@ export class KeySigniture extends Object {
             "F#": 6,
             "C#": 7
         }
+        // Number of flat keys in major
         this.majorFlatKeySigniture = {
             "F":  1,
             "Bb": 2,
@@ -53,6 +60,7 @@ export class KeySigniture extends Object {
             "Gb": 6,
             "Cb": 7
         }
+        // Number of sharp keys in minor
         this.minorSharpKeySigniture = {
             "A":  0,
             "E":  1,
@@ -62,6 +70,7 @@ export class KeySigniture extends Object {
             "G#": 5,
             "D#": 6,
         }
+        // Number of flats keys in minor 
         this.minorFlatKeySigniture = {
             "D":  1,
             "G":  2,
@@ -81,7 +90,10 @@ export class KeySigniture extends Object {
         this.keySelected = key;
     }
     setMajorOrMinor(value){
-        //this.major_or_minor = value;
+        // Update with new value
+        this.major_or_minor = value;
+
+        // Load the Graphics
         if(value == "Minor"){
             if(this.keySelected in this.minorSharpKeySigniture){
                 this.loadSelected = this.minorSharpKeySigniture[this.keySelected]
@@ -103,7 +115,43 @@ export class KeySigniture extends Object {
             console.log("Selected Major")
         
         }
+        
+        let keyDictSig = this.getKeySigniture()
+        this.game.levelSetup.loaded.updateStaveFromKeySignature(keyDictSig)
     }
+    // Returns a dictionay of key and its updated value 
+    // Example a = a flat or {"a":"a-"}
+    getKeySigniture(){
+        let notesToUpdate = {}
+        let quickSelect = {
+            "Major": {
+                "sharp": this.majorSharpKeySigniture, 
+                "flat": this.majorFlatKeySigniture},
+            "Minor": {
+                "sharp": this.minorSharpKeySigniture, 
+                "flat": this.minorFlatKeySigniture},
+        }
+        let quickSelectArray = {
+            "sharp": this.sharpArray,
+            "flat": this.flatArray
+        }
+        let numberOfNotes = quickSelect[this.major_or_minor][this.sharp_or_flat][this.keySelected]
+        let noteArray = quickSelectArray[this.sharp_or_flat] 
+        for(let i = 0; i < numberOfNotes; i++){
+            if(this.sharp_or_flat == "sharp"){
+                let note = noteArray[i]
+                notesToUpdate[note] = note + "+";
+            }
+            if(this.sharp_or_flat == "flat"){
+                let note = noteArray[i]
+                notesToUpdate[note] = note + "-";
+            }
+        }
+        return notesToUpdate
+        // console.log(notesToUpdate)
+        
+    }
+  
 
     update(){}
     drawSharps(context){

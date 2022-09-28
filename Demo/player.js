@@ -94,8 +94,8 @@ export class Stave extends Object {
 
 class TrebleSetup{
     constructor(game){
-        // Y Positions and values 
-        this.posAndValues = [
+        // Y Positions and values on the stave
+        this.stave = [
             [24, "g"],
             [33, "f"],
             [41, "e"],
@@ -110,6 +110,7 @@ class TrebleSetup{
         this.Y = 0;
         this.Value = 0
         this.trebleGraphic = new TrebleGraphic(game);
+        this.naturalNotes = []
         
         this.setup();
 
@@ -119,11 +120,37 @@ class TrebleSetup{
         let load = this.getNext();
         this.Y = load[0]
         this.Value = load[1]
+        this.getNaturalNotesOnSetUp()
     }
     getNext(){
         // Get a random position and value 
-        let randomSelect = Math.floor(Math.random() * this.posAndValues.length);
-        return this.posAndValues[randomSelect];
+        let randomSelect = Math.floor(Math.random() * this.stave.length);
+        return this.stave[randomSelect];
+    }
+    // Updates the stave when key signature changes 
+    updateStaveFromKeySignature(keyDict){
+        // Important to reset the stave before updating
+        this.resetStave()
+        for(let i = 0; i < this.stave.length; i++){
+            let index = this.stave[i];
+            let note = index[1]
+            if(note in keyDict){
+                this.stave[i][1] = keyDict[note]
+            }
+        }
+        console.log(this.stave)
+    }
+    getNaturalNotesOnSetUp(){
+        for(let i = 0; i < this.stave.length; i++){
+            this.naturalNotes.push(this.stave[i][1]);
+        }
+    }
+    resetStave(){
+        // Reset using natural notes and assigning back to orgin
+        for(let i = 0; i < this.stave.length; i++){
+            this.stave[i][1] = this.naturalNotes[i];
+        }
+         
     }
     nextRandom(){
         let next = this.getNext();
@@ -145,7 +172,7 @@ class TrebleSetup{
 class BassSetup {
     constructor(game){
         // Y Positions and values 
-        this.posAndValues = [
+        this.stave = [
             [24, "b"],
             [33, "a"],
             [41, "g"],
@@ -160,17 +187,44 @@ class BassSetup {
         this.Y = 0;
         this.Value = 0
         this.bassGraphic = new BassGraphic(game);
+        this.naturalNotes = []
         this.setup();
     }
     setup(){
         let load = this.getNext();
         this.Y = load[0]
         this.Value = load[1]
+        this.getNaturalNotesOnSetUp()
     }
     getNext(){
         // Get a random position and value 
-        let randomSelect = Math.floor(Math.random() * this.posAndValues.length);
-        return this.posAndValues[randomSelect];
+        let randomSelect = Math.floor(Math.random() * this.stave.length);
+        return this.stave[randomSelect];
+    }
+    // Updates the stave when key signature changes 
+    updateStaveFromKeySignature(keyDict){
+    // Important to reset stave before update 
+    this.resetStave()
+    for(let i = 0; i < this.stave.length; i++){
+        let index = this.stave[i];
+        let note = index[1]
+        if(note in keyDict){
+            this.stave[i][1] = keyDict[note]
+        }
+    }
+        console.log(this.stave)
+    }
+    getNaturalNotesOnSetUp(){
+        for(let i = 0; i < this.stave.length; i++){
+            this.naturalNotes[i] = this.stave[i][1];
+        }
+    }
+    resetStave(){
+        // Reset using natural notes and assigning back to orgin
+        for(let i = 0; i < this.stave.length; i++){
+            this.stave[i][1] = naturalNotes[i];
+        }
+         
     }
     nextRandom(){
         let next = this.getNext();
