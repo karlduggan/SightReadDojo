@@ -216,13 +216,13 @@ class BassSetup {
     }
     getNaturalNotesOnSetUp(){
         for(let i = 0; i < this.stave.length; i++){
-            this.naturalNotes[i] = this.stave[i][1];
+            this.naturalNotes[i].push(this.stave[i][1])
         }
     }
     resetStave(){
         // Reset using natural notes and assigning back to orgin
         for(let i = 0; i < this.stave.length; i++){
-            this.stave[i][1] = naturalNotes[i];
+            this.stave[i][1] = this.naturalNotes[i];
         }
          
     }
