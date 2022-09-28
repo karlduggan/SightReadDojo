@@ -216,7 +216,8 @@ class BassSetup {
     }
     getNaturalNotesOnSetUp(){
         for(let i = 0; i < this.stave.length; i++){
-            this.naturalNotes[i].push(this.stave[i][1])
+            this.naturalNotes.push(this.stave[i][1])
+    
         }
     }
     resetStave(){
