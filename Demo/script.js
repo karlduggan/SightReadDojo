@@ -1,6 +1,7 @@
 
 import {InputHandler} from './inputHandler.js';
-import { Stave, LevelSetup} from './player.js';
+//mport { Stave } from './player.js';
+import { Stave, LevelSetup } from './LevelManager.js';
 
 
 window.addEventListener('load', function(){

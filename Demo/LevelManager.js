@@ -1,17 +1,15 @@
-
-import { InputHandler } from './inputHandler.js';
 import { Scoreboard } from './scoreboard.js';
 import { KeySigniture } from './signiture.js';
-import { LevelSetup } from './LevelManager.js';
+import { InputHandler } from './inputHandler.js';
+import { TrebleGraphic, BassGraphic } from './GraphicManager.js';
 
 
-/*
 export class WholeNote extends Object {
     constructor(game, inputHandler, levelSetup){
         super(game)
         this.image = document.getElementById("wholeNote");
         
-        this.speed = 3;
+        this.speed = 1;
         this.setup = null
         this.inputHandler = inputHandler;
         this.x = 900
@@ -47,28 +45,7 @@ export class WholeNote extends Object {
         context.drawImage(this.image, this.x, this.y)
     }
 }
-/*
-export class TrebleGraphic extends Object {
-    constructor(game){
-        super(game)
-        this.image = document.getElementById("trebleClef");
-    }
-    draw(context){
-        context.drawImage(this.image, 30, 16)
-    }
-}
 
-export class BassGraphic extends Object {
-    constructor(game){
-        super(game)
-        this.image = document.getElementById("bassClef");
-    }
-    draw(context){
-        context.drawImage(this.image, 30,41)
-    }
-}
-*/
-/*
 export class Stave extends Object {
     constructor(game){
         super(game)
@@ -100,7 +77,6 @@ class TrebleSetup{
         this.naturalNotes = []
         
         this.setup();
-
     }
     setup(){
         console.log("Treble is loading...")
@@ -137,7 +113,6 @@ class TrebleSetup{
         for(let i = 0; i < this.stave.length; i++){
             this.stave[i][1] = this.naturalNotes[i];
         }
-         
     }
     nextRandom(){
         let next = this.getNext();
@@ -152,7 +127,6 @@ class TrebleSetup{
     }
     draw(context){
         this.trebleGraphic.draw(context);
-
     }
 }
 
@@ -204,7 +178,6 @@ class BassSetup {
     getNaturalNotesOnSetUp(){
         for(let i = 0; i < this.stave.length; i++){
             this.naturalNotes.push(this.stave[i][1])
-    
         }
     }
     resetStave(){
@@ -212,6 +185,7 @@ class BassSetup {
         for(let i = 0; i < this.stave.length; i++){
             this.stave[i][1] = this.naturalNotes[i];
         }
+         
     }
     nextRandom(){
         let next = this.getNext();
@@ -229,8 +203,7 @@ class BassSetup {
 
     }
 }
-*/
-/*
+
 export class LevelSetup {
     // Type is either Treble clef or Base clef setup
     constructor(game){
@@ -271,4 +244,3 @@ export class LevelSetup {
         console.log("testing karl")
     }
 }
-*/
