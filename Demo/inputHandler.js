@@ -5,52 +5,69 @@ export class InputHandler {
         this.pressed = null
         this.keys = [];
         this.map = {}
+
+        // Add
+        this.capture = []
+        this.doubleKeyUp = true;
        
         window.addEventListener('keydown', e => {
+            // Prevent double key up entry
+            this.doubleKeyUp = false
            // On keydown submit entry to dict
-            this.map[e.key] = e.type == 'keydown'            
+            //this.map[e.key] = e.type == 'keydown'
+
+            // Capture all keys pressed and push to array 
+            // check that the array is reach max capcity of 2
+            // Check that key is not already in the array 
+            let key = e.key 
+            const max = 2;
+            if(!this.capture.includes(key) && this.capture.length < max){
+                this.capture.push(key)   
+            }
+            
         })
         
         window.addEventListener('keyup', e => {
-            let OnePress = true;
-            // On keyup check entry of dict and then clear
-            if("ArrowUp" in this.map){
-                let keysPressed = Object.keys(this.map);
-                let value = keysPressed.filter((e)=>{return e !== 'ArrowUp' })
-                this.pressed = value + "+"
-
-            }
-            if("ArrowDown" in this.map){
-                let keysPressed = Object.keys(this.map);
-                let value = keysPressed.filter((e)=>{return e !== 'ArrowDown' })
-                this.pressed = value + "-"
-
-
-            }
-            if(Object.keys(this.map).length == 1){
-                let keysPressed = Object.keys(this.map);
-                this.pressed = keysPressed[0]
-
-            }
             
-            // Check if correct
-            if(this.pressed == this.note){
-                console.log(this.pressed)
-                console.log(this.note)
-                //alert("Correct")
-                //this.noteInstance.change();
-                this.levelSetupInstance.note.change();
-                this.levelSetupInstance.scoreboard.correctPlusOne();
+            // Clean captured keys
+            if(this.capture.length > 1){
+                if(this.capture.includes("ArrowUp")){
+                    this.capture = this.capture.filter(function(e) { return e !== 'ArrowUp' })
+                    
+                    let value = this.capture[0]
+                    this.pressed = value + "+"
+                
+                }
+                if(this.capture.includes("ArrowDown")){
+                    this.capture = this.capture.filter(function(e) { return e !== 'ArrowDown' })
+                    let value = this.capture[0]
+                    this.pressed = value + "-"
+                }
             } else {
-                //alert("Incorrect")
-                this.levelSetupInstance.scoreboard.incorrectPlusOne();
+                this.pressed = this.capture[0]
+            }
+            // Clear capture
+            this.capture = []
+
+            // Prevent double key up event 
+            if(!this.doubleKeyUp){
+                // Check if correct
+                if(this.pressed == this.note){
+                    
+                    //alert("Correct")
+                    //this.noteInstance.change();
+                    this.levelSetupInstance.note.change();
+                    this.levelSetupInstance.scoreboard.correctPlusOne();
+                } else {
+                    //alert("Incorrect")
+                    this.levelSetupInstance.scoreboard.incorrectPlusOne();
+                }
+                // First keyup know
+                this.doubleKeyUp = true
+                console.log("Pressed: " + this.pressed)
             }
                 
-            
-            console.log("Pressed: " + this.pressed)
-
-            // Clear map
-            this.map = {}
+ 
         })
         
     }
