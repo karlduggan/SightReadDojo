@@ -3,19 +3,15 @@ export class InputHandler {
         this.levelSetupInstance = levelSetupInst
         this.note = null;
         this.pressed = null
-        this.keys = [];
-        this.map = {}
 
-        // Add
+        // Added and capture key strokes
         this.capture = []
         this.doubleKeyUp = true;
        
         window.addEventListener('keydown', e => {
-            // Prevent double key up entry
+            // Prevent double key up entry so reset on keydown
             this.doubleKeyUp = false
-           // On keydown submit entry to dict
-            //this.map[e.key] = e.type == 'keydown'
-
+           
             // Capture all keys pressed and push to array 
             // check that the array is reach max capcity of 2
             // Check that key is not already in the array 
@@ -24,11 +20,9 @@ export class InputHandler {
             if(!this.capture.includes(key) && this.capture.length < max){
                 this.capture.push(key)   
             }
-            
         })
         
         window.addEventListener('keyup', e => {
-            
             // Clean captured keys
             if(this.capture.length > 1){
                 if(this.capture.includes("ArrowUp")){
@@ -66,8 +60,6 @@ export class InputHandler {
                 this.doubleKeyUp = true
                 console.log("Pressed: " + this.pressed)
             }
-                
- 
         })
         
     }
