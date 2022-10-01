@@ -5,16 +5,17 @@ import { TrebleGraphic, BassGraphic } from './GraphicManager.js';
 
 
 export class WholeNote extends Object {
-    constructor(game, inputHandler, levelSetup){
+    constructor(game, inputHandler, speed, levelSetup){
         super(game)
         this.image = document.getElementById("wholeNote");
-        
-        this.speed = 1;
+        this.game = game;
+        this.speed = speed;
         this.setup = null
         this.inputHandler = inputHandler;
         this.x = 900
         this.y = null // this.setup.getY();
         this.noteValue = null //this.setup.getValue();
+        this.endOfStavePosition = 80
         
         this.getNextNote = false;
         this.levelSetup = levelSetup;
@@ -30,19 +31,29 @@ export class WholeNote extends Object {
         this.inputHandler.setNote(this.setup.getValue());
     }
     update(){
+        // Moves the x position of the graphic note on the screen by the rate of speed
         this.x -= this.speed;
-        if(this.x <= 80 || this.getNextNote){
+        if(this.x <= this.endOfStavePosition || this.getNextNote){
+            // If the x position of the note reaches the end of the stave then 
+            if(this.x <= this.endOfStavePosition){
+                // increment the incorrect value on the scoreboard
+                this.game.levelSetup.scoreboard.incorrectPlusOne();
+            }
             this.x = 900;
             this.setup.nextRandom();
             this.y = this.setup.getY();
             this.noteValue = this.setup.getValue();
             this.inputHandler.setNote(this.setup.getValue());
             this.getNextNote = false;
+            
             console.log(this.noteValue)
         }
     }
     draw(context){
         context.drawImage(this.image, this.x, this.y)
+    }
+    increaseSpeed(){
+        this.speed += 0.5;
     }
 }
 
@@ -211,9 +222,16 @@ export class LevelSetup {
         this.scoreboard = new Scoreboard(this)
         this.levelNumber = null;
         this.loaded = null;
+        // Speed
+        this.speed = 1.0;
+        // Max correct number before next level
+        this.maxCorrectNumber = 5
+        // Level number
+        this.level = 1
+
         this.inputHandler = new InputHandler(this)
         this.keySigniture = new KeySigniture(game)
-        this.note = new WholeNote(game, this.inputHandler, this);
+        this.note = new WholeNote(game, this.inputHandler, this.speed, this);
     }
     loadSetup(value){
         console.log("Level setup loading... " + value)
@@ -231,7 +249,6 @@ export class LevelSetup {
         this.note.update();
     }
     draw(context){
-   
         this.note.draw(context);
         this.loaded.draw(context);
         this.keySigniture.draw(context)
@@ -240,7 +257,8 @@ export class LevelSetup {
         this.game.running = false
         console.log("Game Over")
     }
-    test(){
-        console.log("testing karl")
+    nextLevel(){
+        this.level += 1;
+        this.note.increaseSpeed();
     }
 }

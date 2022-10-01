@@ -1,9 +1,13 @@
 <template>
     <body>
-    <div id="scoreboard">
-        <h3 id="scoreboard-correct">Correct: 0</h3>
-        <h3 id="scoreboard-incorrect">Incorrect: 0</h3>
+    <div class="wrapper">
+        <div id="scoreboard-container">
+            <h3 class="scoreboard-block" id="scoreboard-level">Difficulty: 1</h3>
+            <h3 class="scoreboard-block" id="scoreboard-correct">Correct: 0</h3>
+            <h3 class="scoreboard-block" id="scoreboard-incorrect">Incorrect: 0</h3>
+        </div>
     </div>
+   
     <!--canvas id="CanvasLayout" style="border: 1px solid black;"></canvas-->
     <div class="canvas-container">
         <canvas id="CanvasLayout"></canvas>
@@ -138,7 +142,21 @@ window.addEventListener('load', function(){
 </script>
 
 <style scoped>
-    #wholeNote {
+.wrapper{
+    display: flex;
+    justify-content: center;
+    }
+#scoreboard-container {
+
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+.scoreboard-block {
+    display: block;
+}
+
+#wholeNote {
     display: none;
 }
 #bassClef {

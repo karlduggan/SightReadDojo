@@ -1,15 +1,32 @@
 <template>
-    <div class="button-74" role="button">
-        <img src="../assets/baseClef.png" height="40">
-        Bass Clef
+    <div id="play" @click="test" class="button-74" role="button">
+        
+        Start
     </div>
 
 </template>
 <script>
+
     export default {
-        name: "BassButtonComponent"
+        name: "GeneralButtonComponent",
+        // State
+        data() {
+            return {
+                play: false
+            }
+        },
+        // Actions
+        methods: {
+
+            test: () => {
+                console.log("Testing vue click")
+              
+            }
+        }
     }
+
 </script>
+
 
 <style scoped>
     
@@ -23,7 +40,7 @@
   color: #545454;
   cursor: pointer;
   display: inline-grid;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   margin: 5px;
   line-height: 50px;
@@ -50,7 +67,7 @@
   }
 }
 .button-74 img {
-    margin-top: 35px;
+    padding-top: 15px;
     justify-self: center;
 }
 </style>

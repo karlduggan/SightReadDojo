@@ -1,8 +1,6 @@
 
-import {InputHandler} from './inputHandler.js';
-//mport { Stave } from './player.js';
-import { Stave, LevelSetup } from './LevelManager.js';
 
+import { Stave, LevelSetup } from './LevelManager.js';
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById("CanvasLayout");
@@ -32,9 +30,6 @@ window.addEventListener('load', function(){
         }
     }
     const game = new Game();
-    
-    
-    
     // Game Loop
     function animate(){
         ctx.clearRect(0,0,canvas.width, canvas.height);

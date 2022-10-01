@@ -7,12 +7,14 @@
   <BassButtonComponent/>
 </div>
 
+<GeneralButtonComponent/>
 </template>
 
 <script>
 import CanvasDisplay from './components/CanvasDisplay.vue';
 import TrebleButtonComponent from './components/TrebleButtonComponent.vue';
 import BassButtonComponent from './components/BassButtonComponent.vue';
+import GeneralButtonComponent from './components/GeneralButtonComponent.vue';
 
 
 
@@ -21,7 +23,8 @@ export default {
   components: {
     CanvasDisplay,
     TrebleButtonComponent,
-    BassButtonComponent
+    BassButtonComponent,
+    GeneralButtonComponent
 }
 }
 </script>
