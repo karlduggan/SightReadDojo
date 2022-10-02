@@ -2,13 +2,15 @@
 
 <h1>Sight Read Dojo</h1>
 <CanvasDisplay></CanvasDisplay>
-<div class="selection-container">
-  <TrebleButtonComponent/>
-  <BassButtonComponent/>
-</div>
-<div class="selection-container-2">
-  <KeySignatureSelectComponent/>
-  <GeneralButtonComponent/>
+<div class="container">
+  <div class="selection-container">
+    <TrebleButtonComponent/>
+    <BassButtonComponent/>
+  </div>
+  <div class="selection-container-2">
+    <KeySignatureSelectComponent/>
+    <GeneralButtonComponent/>
+  </div>
 </div>
 
 </template>
@@ -34,6 +36,9 @@ export default {
 </script>
 
 <style>
+  h1 {
+    margin-bottom: 50px;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -42,7 +47,9 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
+.container {
+  display: inline-flex;
+}
 .selection-container-2 {
  display: inline-grid;
 }

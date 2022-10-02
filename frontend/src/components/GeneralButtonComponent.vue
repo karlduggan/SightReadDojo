@@ -56,11 +56,10 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+
 }
 
-.button-74:hover {
-  background-color: #fff;
-}
+
 
 .button-74:active {
   box-shadow: #545454 2px 2px 0 0;
@@ -73,8 +72,8 @@
  
   }
 }
-.button-74 img {
-    padding-top: 15px;
-    justify-self: center;
+.button-74:hover{
+  background-color: #000000;
+  color: #fff;
 }
 </style>
