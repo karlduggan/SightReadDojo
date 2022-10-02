@@ -6,8 +6,11 @@
   <TrebleButtonComponent/>
   <BassButtonComponent/>
 </div>
+<div class="selection-container-2">
+  <KeySignatureSelectComponent/>
+  <GeneralButtonComponent/>
+</div>
 
-<GeneralButtonComponent/>
 </template>
 
 <script>
@@ -15,7 +18,7 @@ import CanvasDisplay from './components/CanvasDisplay.vue';
 import TrebleButtonComponent from './components/TrebleButtonComponent.vue';
 import BassButtonComponent from './components/BassButtonComponent.vue';
 import GeneralButtonComponent from './components/GeneralButtonComponent.vue';
-
+import KeySignatureSelectComponent from './components/KeySignatureSelectComponent.vue'
 
 
 export default {
@@ -24,7 +27,8 @@ export default {
     CanvasDisplay,
     TrebleButtonComponent,
     BassButtonComponent,
-    GeneralButtonComponent
+    GeneralButtonComponent,
+    KeySignatureSelectComponent
 }
 }
 </script>
@@ -39,7 +43,7 @@ export default {
   margin-top: 60px;
 }
 
-.selection-container {
- 
+.selection-container-2 {
+ display: inline-grid;
 }
 </style>

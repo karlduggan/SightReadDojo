@@ -14,39 +14,9 @@
     </div>
     
 
-    <label for="key-signiture">Select Key Signiture: </label>
-    <select name="key-signiture" id="key-signiture">
-      
-            <option value="C">C</option>
-            <option value="G">G</option>
-            <option value="D">D</option>
-            <option value="A">A</option>
-            <option value="E">E</option>
-            <option value="B">B</option>
-            <option value="F#">F#</option>
-            <option value="Gb">Gb</option>
-            <option value="Cb">Cb</option>
-            <option value="Db">Db</option>
-            <option value="Ab">Ab</option>
-            <option value="Eb">Eb</option>
-            <option value="Bb">Bb</option>
-            <option value="F">F</option>
-            <option value="C#">C#</option>
-            <option value="G#">G#</option>
-            <option value="D#">D#</option>
+    
 
-    </select>
-    <select name="key-signiture-major-minor" id="key-signiture-major-minor">
-        <option value="Major">Major</option>
-        <option value="Minor">Minor</option>
-      
-    </select>
 
-    <br>
-    <button id="treble-btn">Treble Clef</button>
-    <button id="base-btn">Base Clef</button>
-    <br>
-    <button id="play">Play</button>
     
     <img id="trebleClef" src="../assets/trebleClef.png">
     <img id="bassClef" src="../assets/baseClef.png">
@@ -61,9 +31,15 @@
 
 <script>
 import { Stave, LevelSetup } from './LevelManager.js';
+import State from './state';
 
 export default {
-        name: "CanvasDisplay"
+        name: "CanvasDisplay",
+        data(){
+            return {
+                play: this.$store.state.play
+            }
+        }
     }
 
 window.addEventListener('load', function(){
@@ -83,8 +59,9 @@ window.addEventListener('load', function(){
             this.levelSetup.loadSetup("treble");
         }
         update(){
+            this.levelSetup.updateChanges()
             // Stop and start the game
-            if(this.running){
+            if(State.isRunning){
             this.levelSetup.update();
             }
         }
@@ -103,6 +80,7 @@ window.addEventListener('load', function(){
     }
     //requestAnimationFrame(animate)
      animate(1);    
+    /*
     const treble_btn = document.getElementById("treble-btn");
     treble_btn.addEventListener('click',()=>{
         game.levelSetup.loadSetup("treble");
@@ -111,11 +89,15 @@ window.addEventListener('load', function(){
     base_btn.addEventListener('click', ()=>{
         game.levelSetup.loadSetup("bass");
     })
+    /*
      const play_btn = document.getElementById("play");
      play_btn.addEventListener('click', ()=>{
         game.levelSetup.scoreboard.reset()
         game.running = true;
+       
      })
+     */
+    /*
      const key_signiture_selection = document.getElementById("key-signiture")
      const major_minor_selection = document.getElementById("key-signiture-major-minor")
      key_signiture_selection.addEventListener('change',()=>{
@@ -124,8 +106,6 @@ window.addEventListener('load', function(){
 
         var value = major_minor_selection.value;
         game.levelSetup.keySigniture.setMajorOrMinor(value)
-        
-
      })
      
      major_minor_selection.addEventListener('change',()=>{
@@ -134,9 +114,8 @@ window.addEventListener('load', function(){
 
         var value = major_minor_selection.value;
         game.levelSetup.keySigniture.setMajorOrMinor(value)
-        console.log(value)
-
      })
+     */
 })
 
 </script>

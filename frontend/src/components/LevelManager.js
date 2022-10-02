@@ -2,6 +2,7 @@ import { Scoreboard } from './scoreboard.js';
 import { KeySigniture } from './signiture.js';
 import { InputHandler } from './inputHandler.js';
 import { TrebleGraphic, BassGraphic } from './GraphicManager.js';
+import State from './state.js';
 
 
 export class WholeNote extends Object {
@@ -86,11 +87,9 @@ class TrebleSetup{
         this.Value = 0
         this.trebleGraphic = new TrebleGraphic(game);
         this.naturalNotes = []
-        
         this.setup();
     }
     setup(){
-        console.log("Treble is loading...")
         let load = this.getNext();
         this.Y = load[0]
         this.Value = load[1]
@@ -112,7 +111,7 @@ class TrebleSetup{
                 this.stave[i][1] = keyDict[note]
             }
         }
-        console.log(this.stave)
+        console.log("TrebleSetup -> updated stave -> Completed")
     }
     getNaturalNotesOnSetUp(){
         for(let i = 0; i < this.stave.length; i++){
@@ -184,7 +183,7 @@ class BassSetup {
             this.stave[i][1] = keyDict[note]
         }
     }
-        console.log(this.stave)
+    console.log("BassSetup -> updated stave -> Completed")
     }
     getNaturalNotesOnSetUp(){
         for(let i = 0; i < this.stave.length; i++){
@@ -214,13 +213,14 @@ class BassSetup {
 
     }
 }
-
+// Level setup connects all the components / objects together
 export class LevelSetup {
     // Type is either Treble clef or Base clef setup
     constructor(game){
         this.game = game;
         this.scoreboard = new Scoreboard(this)
         this.levelNumber = null;
+        // this.loaded contains whether it is a treble setup or a bass setup
         this.loaded = null;
         // Speed
         this.speed = 1.0;
@@ -245,6 +245,29 @@ export class LevelSetup {
             this.keySigniture.setBass()
         }
     }
+    // Updates the stave when changes such as treble or key signatures are made 
+    updateChanges(){
+        // Check isLoaded state, this will get set to false everytime a change is made
+        if(!State.isLoaded){
+            let value = State.loadSetup
+            let key = State.keySignature
+            let mode = State.keyMode
+            if(value == "treble"){
+                this.loaded = new TrebleSetup(this.game);
+                // Pass the treble stave data to the note
+                this.keySigniture.setTreble()
+                this.note.loadSettings(this.loaded)
+            } else if(value == "bass"){
+                this.loaded = new BassSetup(this.game);
+                // Pass the treble stave data to the note
+                this.keySigniture.setBass()
+                this.note.loadSettings(this.loaded)
+            }
+            this.game.levelSetup.keySigniture.setKey(key)
+            this.game.levelSetup.keySigniture.setMajorOrMinor(mode)
+            State.isLoaded = true
+        }
+    }
     update(){
         this.note.update();
     }
@@ -254,7 +277,7 @@ export class LevelSetup {
         this.keySigniture.draw(context)
     }
     gameOver(){
-        this.game.running = false
+        State.isRunning= false
         console.log("Game Over")
     }
     nextLevel(){

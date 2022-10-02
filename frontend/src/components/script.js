@@ -1,5 +1,11 @@
 
+export default class Tester{
+    static test(){
+        console.log("printing from a class worked ")
+    }
+}
 
+/*
 import { Stave, LevelSetup } from './LevelManager.js';
 
 window.addEventListener('load', function(){
@@ -91,3 +97,4 @@ window.addEventListener('load', function(){
 
 
 
+*/

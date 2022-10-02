@@ -1,13 +1,26 @@
 <template>
-    <div class="button-74" role="button">
+    <div @click="submit" class="button-74" role="button">
         <img src="../assets/trebleClef.png" height="60">
         Treble Clef
     </div>
 
 </template>
+
 <script>
+  import State from "./state"
     export default {
-        name: "TrebleButtonComponent"
+        name: "TrebleButtonComponent",
+        data(){
+          return {
+
+          }
+        },
+        methods: {
+          submit: function() {
+            State.loadSetup = "treble"
+            State.isLoaded = false
+          }
+        }
     }
 </script>
 

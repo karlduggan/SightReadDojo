@@ -1,11 +1,12 @@
 <template>
     <div id="play" @click="test" class="button-74" role="button">
-        
+       
         Start
     </div>
 
 </template>
 <script>
+    import State from "./state.js"
 
     export default {
         name: "GeneralButtonComponent",
@@ -13,13 +14,19 @@
         data() {
             return {
                 play: false
+                
             }
         },
         // Actions
         methods: {
 
-            test: () => {
+            test: function() {
                 console.log("Testing vue click")
+                
+                State.isRunning = true;
+                console.log(State.isRunning)
+
+
               
             }
         }

@@ -102,7 +102,7 @@ export class KeySigniture extends Object {
                 this.loadSelected = this.minorFlatKeySigniture[this.keySelected]
                 this.sharp_or_flat = "flat";
             }
-            console.log("Selected Minor")
+            console.log("KeySigniture -> Selected Minor")
         }
         if(value == "Major"){
             if(this.keySelected in this.majorSharpKeySigniture){
@@ -112,11 +112,12 @@ export class KeySigniture extends Object {
                 this.loadSelected = this.majorFlatKeySigniture[this.keySelected]
                 this.sharp_or_flat = "flat";
             }
-            console.log("Selected Major")
-        
+            console.log("KeySigniture -> Selected Major")
+            
         }
         
         let keyDictSig = this.getKeySigniture()
+        console.log("KeySigniture -> Key sig changed test")
         this.game.levelSetup.loaded.updateStaveFromKeySignature(keyDictSig)
     }
     // Returns a dictionay of key and its updated value 

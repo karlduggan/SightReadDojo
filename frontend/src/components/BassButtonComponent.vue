@@ -1,13 +1,25 @@
 <template>
-    <div class="button-74" role="button">
+    <div @click="submit" class="button-74" role="button">
         <img src="../assets/baseClef.png" height="40">
         Bass Clef
     </div>
 
 </template>
 <script>
+  import State from "./state"
     export default {
-        name: "BassButtonComponent"
+        name: "BassButtonComponent",
+        data(){
+          return {
+
+          }
+        },
+        methods: {
+          submit: function() {
+            State.loadSetup = "bass"
+            State.isLoaded = false
+          }
+        }
     }
 </script>
 
