@@ -62,7 +62,8 @@ window.addEventListener('load', function(){
             this.levelSetup.updateChanges()
             // Stop and start the game
             if(State.isRunning){
-            this.levelSetup.update();
+                // Update level setup
+                this.levelSetup.update();
             }
         }
         draw(context){

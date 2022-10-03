@@ -5,4 +5,5 @@ export default class State {
     static isLoaded = true
     static keySignature = "C"
     static keyMode = "Major"
+    static reset = false
 }

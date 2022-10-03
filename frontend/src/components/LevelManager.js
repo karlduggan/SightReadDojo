@@ -270,6 +270,12 @@ export class LevelSetup {
     }
     update(){
         this.note.update();
+         // Add scoreboard reset to ensure everything is zero
+         if(State.reset){
+            this.scoreboard.reset()
+            State.reset = false;
+         }
+         
     }
     draw(context){
         this.note.draw(context);
@@ -279,6 +285,9 @@ export class LevelSetup {
     gameOver(){
         State.isRunning= false
         console.log("Game Over")
+        // Set state reset true for scoreboard reset on play
+        State.reset = true
+       
     }
     nextLevel(){
         this.level += 1;
