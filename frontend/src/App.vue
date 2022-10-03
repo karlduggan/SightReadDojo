@@ -12,6 +12,7 @@
     <GeneralButtonComponent/>
   </div>
 </div>
+<InstructionComponent/>
 
 </template>
 
@@ -21,6 +22,7 @@ import TrebleButtonComponent from './components/TrebleButtonComponent.vue';
 import BassButtonComponent from './components/BassButtonComponent.vue';
 import GeneralButtonComponent from './components/GeneralButtonComponent.vue';
 import KeySignatureSelectComponent from './components/KeySignatureSelectComponent.vue'
+import InstructionComponent from './components/InstructionComponent.vue';
 
 
 export default {
@@ -30,7 +32,8 @@ export default {
     TrebleButtonComponent,
     BassButtonComponent,
     GeneralButtonComponent,
-    KeySignatureSelectComponent
+    KeySignatureSelectComponent,
+    InstructionComponent
 }
 }
 </script>
