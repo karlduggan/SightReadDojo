@@ -1,5 +1,5 @@
 <template>
-    <div id="play" @click="test" class="button-74" role="button">
+    <div id="play" @click="toggle" class="button-74" role="button">
        
         Start
     </div>
@@ -14,20 +14,14 @@
         data() {
             return {
                 play: false
-                
             }
         },
         // Actions
         methods: {
-
-            test: function() {
-                console.log("Testing vue click")
-                
-                State.isRunning = true;
+            toggle: function() {
+                // Clicking to start and stop 
+                State.isRunning = !State.isRunning;
                 console.log(State.isRunning)
-
-
-              
             }
         }
     }
