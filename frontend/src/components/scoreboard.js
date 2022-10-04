@@ -1,3 +1,5 @@
+import State from "./state";
+
 export class Scoreboard{
     constructor(levelSetup){
         this.levelSetup = levelSetup
@@ -8,27 +10,33 @@ export class Scoreboard{
         this.totalNumberOfQuestions = 0;
     }
     correctPlusOne(){
-        this.correct += 1;
-        this.levelBuffer += 1;
-        this.totalNumberOfQuestions += 1;
-        // Check if next level 
-        if(this.levelBuffer >= this.levelSetup.maxCorrectNumber){
-            // Set next level
-            this.levelSetup.nextLevel();
-            console.log("Level + 1")
-            // Clear level buffer back to 0
-            this.levelBuffer = 0;
-        }
+        // Check if running before ++
+        if(State.isRunning){
+            this.correct += 1;
+            this.levelBuffer += 1;
+            this.totalNumberOfQuestions += 1;
+            // Check if next level 
+            if(this.levelBuffer >= this.levelSetup.maxCorrectNumber){
+                // Set next level
+                this.levelSetup.nextLevel();
+                console.log("Level + 1")
+                // Clear level buffer back to 0
+                this.levelBuffer = 0;
+            }
 
-        console.log("Correct + 1")
-        this.updateHTMLScoreboard()
+            console.log("Correct + 1")
+            this.updateHTMLScoreboard()
+        }
     }
     incorrectPlusOne(){
-        this.incorrect += 1;
-        this.totalNumberOfQuestions += 1;
-        this.updateHTMLScoreboard()
-        if(this.incorrect >= 5){
-            this.levelSetup.gameOver()
+        // Check if running before ++
+        if(State.isRunning){
+            this.incorrect += 1;
+            this.totalNumberOfQuestions += 1;
+            this.updateHTMLScoreboard()
+            if(this.incorrect >= 5){
+                this.levelSetup.gameOver()
+            }
         }
     }
     levelPlusOne(){
