@@ -19,6 +19,6 @@
 </script>
 <style scoped>
     h2{
-        margin-top: 50px;
+        margin-top: 0rem;
     }
 </style>
