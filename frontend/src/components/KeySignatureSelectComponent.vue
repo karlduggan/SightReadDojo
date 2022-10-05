@@ -1,6 +1,6 @@
 <template>
 
-    <p>Select Key Signiture </p>
+    <p>Select Key Signature </p>
     <div class="select-container">
         
             <select @change="keyOnChange($event)" name="key-signiture" class="select-74" id="key-signiture" @keydown="preventKeyboardInput($event)">
