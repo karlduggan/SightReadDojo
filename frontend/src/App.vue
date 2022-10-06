@@ -60,7 +60,10 @@ setup(){
     margin-bottom: 50px;
     font-size: 50px;
     font-weight: 600;
-    color: #545454;
+    font-family: Teko,sans-serif;
+    color: #686868;
+  
+    text-shadow: 8px 8px 0px  #dbdbdb;
     
   }
 #app {
