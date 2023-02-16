@@ -1,8 +1,8 @@
 # SightReadDojo
 
-SightRead Dojo is an interactive music notation game built to help music students with there practice of memorising notation and their position on the stave for both Treble and Base clef.
+SightRead Dojo is an interactive music notation game designed to help music students improve their skills in reading and memorizing notation on both the Treble and Bass clefs.
 
-The design is minimalistic for the purpose of having as little destraction as possible. 
+The game's minimalistic design is intended to minimize distractions, allowing students to focus solely on the task at hand. With SightRead Dojo, students can practice their note recognition and stave position in a fun and engaging way. Whether you're a beginner or an experienced musician, SightRead Dojo is a great tool to help you master the fundamentals of music notation.
 
 Try for yourself:
 https://sightreaddojo.netlify.app/
